@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        #container {
+            width: 90%;
+            height: 90%;
+        }
+        #inputBox {
+            width: 100%;
+            height: 100%;
+            padding: 10px;
+            font-size: 18px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <textarea id="inputBox" placeholder="Write a great American novel here..."></textarea>
+    </div>
+
+    <script>
+        let predeterminedText = '';
+        let currentIndex = 0;
+        
+        fetch('greatgatsby.txt')
+            .then(response => response.text())
+            .then(data => {
+                predeterminedText = data;
+            })
+            .catch(error => console.error('Error fetching the text file:', error));
+
+        document.getElementById('inputBox').addEventListener('keydown', function(event) {
+            event.preventDefault();
+            if (currentIndex < predeterminedText.length) {
+                this.value += predeterminedText[currentIndex];
+                currentIndex++;
+            }
+        });
+    </script>
+</body>
+</html>
